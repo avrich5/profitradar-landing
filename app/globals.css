@@ -1,26 +1,98 @@
 @import "tailwindcss";
 
 :root {
+  /* Light mode (fallback) */
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* EXACT colors from app gradient (Next Step button) */
+  --brand-green: #9ff878;      /* Light green from gradient start */
+  --brand-green-dark: #78c368;  /* Darker green from gradient end */
+  --brand-olive: #2a3823;       /* Dark olive from app backgrounds */
+  
+  /* Dark backgrounds - matched to app */
+  --deep-black: #0a0a0a;
+  --rich-gray: #1a1a1a;
+  --app-gray: #2d2d2d;         
+  --card-bg: #2a2a2a;
+  
+  /* Accent colors */
+  --glow-cyan: #22d3ee;
+  --glow-blue: #60a5fa;
+  
+  /* Text colors */
+  --text-primary: #f9fafb;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  
+  /* Custom brand colors */
+  --color-brand-green: var(--brand-green);
+  --color-brand-green-dark: var(--brand-green-dark);
+  --color-brand-olive: var(--brand-olive);
+  
+  /* Background colors */
+  --color-deep-black: var(--deep-black);
+  --color-rich-gray: var(--rich-gray);
+  --color-app-gray: var(--app-gray);
+  --color-card-bg: var(--card-bg);
+  
+  /* Accent colors */
+  --color-glow-cyan: var(--glow-cyan);
+  --color-glow-blue: var(--glow-blue);
+  
+  /* Text colors */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  
+  /* Fonts */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* Animations */
+  --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--app-gray);
+    --foreground: var(--text-primary);
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Premium scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar (webkit only) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--rich-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brand-green-dark);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-green);
 }

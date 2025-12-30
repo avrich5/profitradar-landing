@@ -1,0 +1,11 @@
+{
+  "install": {
+    "description": "Install additional packages for premium animations and utilities",
+    "commands": [
+      "cd /Users/andriy/VisualStudio/profitradar-landings/site",
+      "npm install framer-motion clsx tailwind-merge",
+      "npm install @radix-ui/react-slot class-variance-authority"
+    ]
+  },
+  "note": "After installation, run 'npm run dev' to start development server"
+}
