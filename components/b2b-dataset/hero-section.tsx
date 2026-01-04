@@ -127,13 +127,13 @@ export function DatasetHeroSection() {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="grid grid-cols-2 gap-6"
           >
-            {/* Left - JSONL Structure */}
+            {/* Left - Training Examples by Quality Tier */}
             <div className="relative">
               <div className="absolute -inset-2 bg-gradient-to-br from-blue-500/20 to-purple-500/10 rounded-2xl blur-2xl" />
               <div className="relative rounded-xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)]">
                 <img
-                  src="/dataset/jsonl_structure_diagram.drawio.png"
-                  alt="JSONL Structure - Dataset Architecture"
+                  src="/dataset/Training Examples by Quality Tier.png"
+                  alt="Training Examples by Quality Tier"
                   className="w-full h-auto"
                 />
               </div>

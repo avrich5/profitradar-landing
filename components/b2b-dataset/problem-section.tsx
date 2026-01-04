@@ -38,7 +38,7 @@ export function DatasetProblemSection() {
             >
               AI that sounds smart{" "}
               <span className="block mt-2">
-                vs. AI that makes <span className="text-[#9ff878]">defensible decisions</span>
+                vs AI that makes <span className="text-[#9ff878]">defensible decisions</span>
               </span>
             </motion.h2>
 
@@ -49,7 +49,7 @@ export function DatasetProblemSection() {
               transition={{ delay: 0.4, duration: 0.6 }}
               className="text-xl text-slate-400 leading-relaxed mb-8"
             >
-              Most models teach AI what people <span className="text-white font-semibold">write</span> about 
+              Most models teach AI what <span className="text-white font-semibold">people write</span> about 
               the market (Reddit, Investopedia).
             </motion.p>
 
