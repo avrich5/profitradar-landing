@@ -73,8 +73,8 @@ export function DatasetHeroSection() {
               <span className="block text-5xl lg:text-6xl font-bold text-white leading-tight mb-3">
                 Ground your AI Trading decisions
               </span>
-              <span className="block text-3xl lg:text-4xl font-bold leading-tight">
-                in <span className="text-[#9ff878]">Empirical Reality</span>
+              <span className="block text-5xl lg:text-6xl font-bold text-[#9ff878] leading-tight">
+                in Empirical Reality
               </span>
             </h1>
 
@@ -128,13 +128,13 @@ export function DatasetHeroSection() {
             className="grid grid-cols-2 gap-6 items-start"
           >
             {/* Left - Training Examples by Quality Tier */}
-            <div className="relative">
+            <div className="relative w-fit mx-auto">
               <div className="absolute -inset-2 bg-gradient-to-br from-blue-500/20 to-purple-500/10 rounded-2xl blur-2xl" />
               <div className="relative rounded-xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)]">
                 <img
                   src="/dataset/Training Examples by Quality Tier.png"
                   alt="Training Examples by Quality Tier"
-                  className="w-full h-auto object-contain"
+                  className="h-auto object-contain"
                   style={{ maxHeight: '450px' }}
                 />
               </div>
