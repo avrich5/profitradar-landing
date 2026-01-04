@@ -71,7 +71,7 @@ export function HeroSectionCausal() {
             {/* Headline - 2 lines */}
             <h1 className="mb-8">
               <span className="block text-5xl lg:text-6xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent leading-tight mb-2">
-                Trade with Pro Confidence.
+                Trade with Pro Confidence
               </span>
               <span className="block text-3xl lg:text-4xl font-bold text-white leading-tight">
                 Your profit radar calibrated with AI
