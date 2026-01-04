@@ -144,7 +144,7 @@ export function DatasetHeroSection() {
             </div>
 
             {/* Right - Strategic Adviser POC */}
-            <div className="relative -ml-10">
+            <div className="relative -ml-2.5">
               <div className="absolute -inset-2 bg-gradient-to-br from-[#9ff878]/30 to-emerald-500/10 rounded-2xl blur-2xl" />
               <div className="relative rounded-xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)]">
                 <img
