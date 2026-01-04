@@ -125,7 +125,7 @@ export function DatasetHeroSection() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="grid grid-cols-2 gap-6 items-start"
+            className="grid grid-cols-2 gap-4 items-start"
           >
             {/* Left - Training Examples by Quality Tier */}
             <div className="relative w-fit mx-auto">
