@@ -26,7 +26,7 @@ export function IntegrationSection() {
 
             <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
               Ready for Fine-tuning & RAG.{" "}
-              <span className="block mt-2 bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
+              <span className="block mt-2 text-[#9ff878]">
                 Integration in 1-2 Days
               </span>
             </h2>
@@ -77,7 +77,7 @@ export function IntegrationSection() {
 
             {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="flex-1 bg-blue-600 hover:bg-blue-500">
+              <Button size="lg" className="flex-1 bg-[#9ff878] hover:bg-[#78c368] text-slate-950 font-bold">
                 Request Access
                 <svg className="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -122,11 +122,11 @@ export function IntegrationSection() {
             >
               <div className="p-4 rounded-xl bg-slate-950 border border-slate-800">
                 <div className="text-sm text-slate-400 mb-1">Training Progress</div>
-                <div className="text-xl font-bold text-green-400">Stable Loss ↓</div>
+                <div className="text-xl font-bold text-[#9ff878]">Stable Loss ↓</div>
               </div>
               <div className="p-4 rounded-xl bg-slate-950 border border-slate-800">
                 <div className="text-sm text-slate-400 mb-1">Peak Accuracy</div>
-                <div className="text-xl font-bold text-green-400">96% →</div>
+                <div className="text-xl font-bold text-[#9ff878]">96% →</div>
               </div>
             </motion.div>
           </motion.div>

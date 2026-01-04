@@ -25,7 +25,7 @@ export function DataArchitectureSection() {
 
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
             Inside the Dataset:{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+            <span className="text-[#9ff878]">
               Instruction-Input-Output Architecture
             </span>
           </h2>

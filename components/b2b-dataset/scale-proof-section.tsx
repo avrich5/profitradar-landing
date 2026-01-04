@@ -25,7 +25,7 @@ export function ScaleProofSection() {
 
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
             Millions of Real Trades{" "}
-            <span className="block mt-2 bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
+            <span className="block mt-2 text-[#9ff878]">
               on Data Intelligence Lab Infrastructure
             </span>
           </h2>
@@ -96,15 +96,15 @@ export function ScaleProofSection() {
           <div className="p-8 rounded-2xl bg-slate-950 border border-slate-800">
             <div className="grid md:grid-cols-3 gap-8 text-center">
               <div>
-                <div className="text-3xl font-bold text-green-400 mb-2">500+</div>
+                <div className="text-3xl font-bold text-[#9ff878] mb-2">500+</div>
                 <div className="text-sm text-slate-400">Backtest variations per example</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-blue-400 mb-2">40-60</div>
+                <div className="text-3xl font-bold text-[#9ff878] mb-2">40-60</div>
                 <div className="text-sm text-slate-400">Facts analyzed per example</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-cyan-400 mb-2">All Regimes</div>
+                <div className="text-3xl font-bold text-[#9ff878] mb-2">All Regimes</div>
                 <div className="text-sm text-slate-400">Bull, bear, sideways testing</div>
               </div>
             </div>

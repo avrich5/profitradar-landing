@@ -56,7 +56,7 @@ export function QualityControlSection() {
 
             <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
               Mathematical{" "}
-              <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+              <span className="text-[#9ff878]">
                 Confidence
               </span>
             </h2>

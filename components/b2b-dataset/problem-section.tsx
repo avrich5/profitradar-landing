@@ -37,8 +37,8 @@ export function DatasetProblemSection() {
               className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight"
             >
               AI that sounds smart{" "}
-              <span className="block mt-2 text-blue-400">
-                vs. AI that makes defensible decisions
+              <span className="block mt-2">
+                vs. AI that makes <span className="text-[#9ff878]">defensible decisions</span>
               </span>
             </motion.h2>
 
@@ -58,9 +58,9 @@ export function DatasetProblemSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5, duration: 0.6 }}
-              className="p-6 rounded-xl bg-blue-500/5 border border-blue-500/20"
+              className="p-6 rounded-xl bg-[#9ff878]/5 border border-[#9ff878]/20"
             >
-              <div className="text-2xl font-bold text-blue-400 mb-3">
+              <div className="text-2xl font-bold text-[#9ff878] mb-3">
                 Our dataset teaches how strategies actually behave in reality
               </div>
               <div className="text-slate-400">
