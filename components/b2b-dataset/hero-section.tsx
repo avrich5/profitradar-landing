@@ -61,7 +61,7 @@ export function DatasetHeroSection() {
         </div>
 
         {/* Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        <div className="grid lg:grid-cols-[45%_55%] gap-16 items-center">
           {/* Left: Content */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -120,16 +120,16 @@ export function DatasetHeroSection() {
             </div>
           </motion.div>
 
-          {/* Right: Vertical Visuals Stack */}
+          {/* Right: Split Visual */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="space-y-8"
+            className="grid grid-cols-2 gap-6"
           >
-            {/* Top - JSONL Structure */}
+            {/* Left - JSONL Structure */}
             <div className="relative">
-              <div className="absolute -inset-3 bg-gradient-to-br from-blue-500/20 to-purple-500/10 rounded-2xl blur-2xl" />
+              <div className="absolute -inset-2 bg-gradient-to-br from-blue-500/20 to-purple-500/10 rounded-2xl blur-2xl" />
               <div className="relative rounded-xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)]">
                 <img
                   src="/dataset/jsonl_structure_diagram.drawio.png"
@@ -142,9 +142,9 @@ export function DatasetHeroSection() {
               </div>
             </div>
 
-            {/* Bottom - Strategic Adviser POC */}
+            {/* Right - Strategic Adviser POC */}
             <div className="relative">
-              <div className="absolute -inset-3 bg-gradient-to-br from-[#9ff878]/20 to-emerald-500/10 rounded-2xl blur-2xl" />
+              <div className="absolute -inset-2 bg-gradient-to-br from-[#9ff878]/20 to-emerald-500/10 rounded-2xl blur-2xl" />
               <div className="relative rounded-xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)]">
                 <img
                   src="/dataset/Strategic Adviser Model (POC Stage).png"
