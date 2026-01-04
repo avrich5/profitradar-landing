@@ -125,7 +125,7 @@ export function DatasetHeroSection() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="grid grid-cols-2 gap-6"
+            className="grid grid-cols-2 gap-6 items-start"
           >
             {/* Left - Training Examples by Quality Tier */}
             <div className="relative">
@@ -134,7 +134,8 @@ export function DatasetHeroSection() {
                 <img
                   src="/dataset/Training Examples by Quality Tier.png"
                   alt="Training Examples by Quality Tier"
-                  className="w-full h-auto"
+                  className="w-full h-auto object-contain"
+                  style={{ maxHeight: '450px' }}
                 />
               </div>
               <div className="mt-3 text-xs text-slate-500 text-center">
