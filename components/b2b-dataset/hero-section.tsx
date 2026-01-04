@@ -130,12 +130,12 @@ export function DatasetHeroSection() {
             {/* Left - Training Examples by Quality Tier */}
             <div className="relative w-fit mx-auto">
               <div className="absolute -inset-2 bg-gradient-to-br from-blue-500/40 to-purple-500/10 rounded-2xl blur-2xl" />
-              <div className="relative rounded-xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)]">
+              <div className="relative rounded-xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)] w-fit">
                 <img
                   src="/dataset/Training Examples by Quality Tier.png"
                   alt="Training Examples by Quality Tier"
-                  className="h-auto object-contain"
-                  style={{ maxHeight: '450px' }}
+                  className="block"
+                  style={{ maxHeight: '450px', width: 'auto' }}
                 />
               </div>
               <div className="mt-3 text-xs text-slate-500 text-center">
