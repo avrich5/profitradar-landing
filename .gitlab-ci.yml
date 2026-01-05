@@ -1,0 +1,174 @@
+default:
+  tags:
+    - kubernetes
+
+stages:
+  - lint
+  - type-check
+  - security
+  - build
+  - scan
+  - deploy
+
+variables:
+  NODE_VERSION: "20"
+  REGISTRY: $CI_REGISTRY
+  IMAGE_NAME: $CI_REGISTRY_IMAGE
+  K8S_AGENT_CONTEXT: "frv/shark-bot:k3shetzner"
+  RELEASE_NAME: "profitradar-landing"
+  RELEASE_NAMESPACE: "default"
+
+# Cache for npm dependencies
+.npm_cache: &npm_cache
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm/
+    policy: pull-push
+
+# Base template for Node.js jobs
+.node_template: &node_template
+  image: node:${NODE_VERSION}-alpine
+  <<: *npm_cache
+  before_script:
+    - npm ci --cache .npm --prefer-offline
+
+lint:
+  stage: lint
+  <<: *node_template
+  script:
+    - npm run lint
+  allow_failure: false
+
+type-check:
+  stage: type-check
+  <<: *node_template
+  script:
+    - npm run type-check
+  allow_failure: false
+
+npm-audit:
+  stage: security
+  <<: *node_template
+  script:
+    - echo "Running npm audit..."
+    - npm audit --audit-level=moderate || true
+  allow_failure: true
+
+trivy-config-scan:
+  stage: security
+  image:
+    name: aquasec/trivy:latest
+    entrypoint: [""]
+  script:
+    - trivy config --severity CRITICAL,HIGH --exit-code 0 --format table ${CI_PROJECT_DIR} || true
+    - trivy config --severity CRITICAL,HIGH --exit-code 0 --format sarif -o trivy-config-results.sarif ${CI_PROJECT_DIR} || true
+  artifacts:
+    reports:
+      sast: trivy-config-results.sarif
+    paths:
+      - trivy-config-results.sarif
+    expire_in: 1 week
+  allow_failure: true
+
+build:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:v1.23.2-debug
+    entrypoint: [""]
+  dependencies: []
+  only:
+    - main
+    - master
+    - develop
+    - docker-nginx-setup
+    - tags
+  before_script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+  script:
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination ${IMAGE_NAME}:${CI_COMMIT_SHA} --destination ${IMAGE_NAME}:latest --cache=true --cache-ttl=24h --cache-repo="${IMAGE_NAME}/cache" --compressed-caching=false --verbosity=info
+
+scan-image:
+  stage: scan
+  image:
+    name: aquasec/trivy:latest
+    entrypoint: [""]
+  dependencies:
+    - build
+  only:
+    - main
+    - master
+    - develop
+    - docker-nginx-setup
+    - tags
+  script:
+    - trivy image --severity CRITICAL,HIGH --exit-code 0 --format table ${IMAGE_NAME}:${CI_COMMIT_SHA} || true
+    - trivy image --severity CRITICAL,HIGH --exit-code 0 --format sarif -o trivy-image-results.sarif ${IMAGE_NAME}:${CI_COMMIT_SHA} || true
+  artifacts:
+    reports:
+      sast: trivy-image-results.sarif
+    paths:
+      - trivy-image-results.sarif
+    expire_in: 1 week
+  allow_failure: true
+
+deploy:helm:
+  stage: deploy
+  image: dtzar/helm-kubectl:3.19.1
+  dependencies:
+    - build
+  only:
+    - main
+    - master
+    - develop
+    - docker-nginx-setup
+    - tags
+  when: manual
+  before_script:
+    - helm version
+    - kubectl version --client
+    # Configure kubectl to use GitLab agent context
+    - |
+      if [ -n "$KUBECONFIG" ]; then
+        echo "Setting up Kubernetes authentication..."
+        chmod 400 "$KUBECONFIG"
+        export KUBECONFIG
+        kubectl config use-context ${K8S_AGENT_CONTEXT:-frv/shark-bot:k3shetzner}
+        kubectl cluster-info
+      else
+        echo "Warning: KUBECONFIG not set, kubectl may not be configured"
+      fi
+  script:
+    - |
+      if [ -z "$INGRESS_HOST" ]; then
+        echo "Error: INGRESS_HOST environment variable is not set"
+        exit 1
+      fi
+    - echo "Deploying to Kubernetes cluster..."
+    - echo "Image ${IMAGE_NAME}:${CI_COMMIT_SHA}"
+    - echo "Ingress Host ${INGRESS_HOST}"
+    - |
+      # Set NetworkPolicy enabled based on ENABLE_NETWORK_POLICY variable (default: true)
+      if [ "${ENABLE_NETWORK_POLICY:-true}" = "false" ]; then
+        NETWORK_POLICY_SET="--set networkPolicy.enabled=false"
+        echo "NetworkPolicy disabled via ENABLE_NETWORK_POLICY variable"
+      else
+        NETWORK_POLICY_SET="--set networkPolicy.enabled=true"
+        echo "NetworkPolicy enabled (default or ENABLE_NETWORK_POLICY=true)"
+      fi
+      helm upgrade --install ${RELEASE_NAME:-profitradar-landing} ./helm/profitradar-landing \
+        --namespace ${RELEASE_NAMESPACE:-default} \
+        --create-namespace \
+        --set image.repository=${IMAGE_NAME} \
+        --set image.tag=${CI_COMMIT_SHA} \
+        --set ingress.hosts[0].host=${INGRESS_HOST} \
+        ${NETWORK_POLICY_SET} \
+        --wait \
+        --timeout 5m
+    - echo "Deployment completed successfully"
+    - kubectl get pods -n ${RELEASE_NAMESPACE:-default} -l app.kubernetes.io/name=${RELEASE_NAME:-profitradar-landing}
+    - kubectl get ingress -n ${RELEASE_NAMESPACE:-default} ${RELEASE_NAME:-profitradar-landing}
+

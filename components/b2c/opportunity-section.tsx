@@ -1,7 +1,6 @@
 "use client"
 
 import { motion } from "framer-motion"
-import Image from "next/image"
 
 export function OpportunitySection() {
   const capabilities = [
@@ -70,7 +69,7 @@ export function OpportunitySection() {
             transition={{ delay: 0.3, duration: 0.6 }}
             className="text-xl lg:text-2xl text-text-primary leading-relaxed font-semibold mb-4"
           >
-            The problem wasn't backtesting itself — it was that nobody trusted the results.
+            The problem wasn&apos;t backtesting itself — it was that nobody trusted the results.
           </motion.p>
 
           <motion.p
@@ -129,8 +128,8 @@ export function OpportunitySection() {
         >
           <div className="bg-gradient-to-br from-brand-green/10 to-brand-green/5 rounded-2xl border-2 border-brand-green/20 p-8 lg:p-12">
             <p className="text-xl lg:text-2xl text-text-primary leading-relaxed text-center font-semibold">
-              We've been using this infrastructure for real trading for 3 years. 
-              When backtests show performance, we trust them — because we've seen it translate to live results. 
+              We&apos;ve been using this infrastructure for real trading for 3 years. 
+              When backtests show performance, we trust them — because we&apos;ve seen it translate to live results. 
               <span className="block mt-4 text-brand-green">
                 Now you have access to the same validation engine.
               </span>
@@ -220,7 +219,7 @@ export function OpportunitySection() {
             {/* Transform Statement */}
             <div>
               <p className="text-xl text-text-secondary leading-relaxed mb-6">
-                This isn't about solving the "backtest problem" — it's about making strategy creation enjoyable.{" "}
+                This isn&apos;t about solving the &quot;backtest problem&quot; — it&apos;s about making strategy creation enjoyable.{" "}
                 <span className="text-text-primary font-semibold">AI handles the technical translation.</span> You focus on market insights.{" "}
                 <span className="text-text-primary font-semibold">Infrastructure you can trust delivers validation.</span>
               </p>
@@ -265,7 +264,7 @@ export function OpportunitySection() {
                 Infrastructure processing 2000+ transactions/minute. Three years live trading. 
                 290M turnover validated methodology.{" "}
                 <span className="text-text-secondary font-semibold">
-                  This isn't theory — it's what we actually use.
+                  This isn&apos;t theory — it&apos;s what we actually use.
                 </span>
               </p>
             </div>
