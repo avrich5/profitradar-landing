@@ -1,12 +1,16 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { Button } from "@/components/shared/button"
+import { EarlyAccessModal } from "@/components/shared/early-access-modal"
 
 export function DatasetHeroSection() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-950">
+    <>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-950">
       {/* Animated gradient orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -103,7 +107,10 @@ export function DatasetHeroSection() {
             </div>
 
             {/* CTA Button */}
-            <Button size="lg" className="w-full group bg-[#9ff878] hover:bg-[#78c368] text-slate-950 font-bold mb-6">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="w-full group bg-[#9ff878] hover:bg-[#78c368] text-slate-950 font-bold px-8 py-4 rounded-xl transition-all duration-200 shadow-[0_0_30px_rgba(159,248,120,0.3)] hover:shadow-[0_0_40px_rgba(159,248,120,0.5)] mb-6 inline-flex items-center justify-center"
+            >
               Request Dataset Access
               <svg 
                 className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" 
@@ -113,7 +120,7 @@ export function DatasetHeroSection() {
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
-            </Button>
+            </button>
 
             {/* Trust Indicators */}
             <div className="text-sm text-slate-500 text-center">
@@ -166,5 +173,13 @@ export function DatasetHeroSection() {
         </div>
       </div>
     </section>
+
+      {/* Early Access Modal */}
+      <EarlyAccessModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        source="B2B"
+      />
+    </>
   )
 }
