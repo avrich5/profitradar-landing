@@ -151,12 +151,21 @@ deploy:helm:
     - echo "Image ${IMAGE_NAME}:${CI_COMMIT_SHA}"
     - echo "Ingress Host ${INGRESS_HOST}"
     - |
+      # Set NetworkPolicy enabled based on ENABLE_NETWORK_POLICY variable (default: true)
+      if [ "${ENABLE_NETWORK_POLICY:-true}" = "false" ]; then
+        NETWORK_POLICY_SET="--set networkPolicy.enabled=false"
+        echo "NetworkPolicy disabled via ENABLE_NETWORK_POLICY variable"
+      else
+        NETWORK_POLICY_SET="--set networkPolicy.enabled=true"
+        echo "NetworkPolicy enabled (default or ENABLE_NETWORK_POLICY=true)"
+      fi
       helm upgrade --install ${RELEASE_NAME:-profitradar-landing} ./helm/profitradar-landing \
         --namespace ${RELEASE_NAMESPACE:-default} \
         --create-namespace \
         --set image.repository=${IMAGE_NAME} \
         --set image.tag=${CI_COMMIT_SHA} \
         --set ingress.hosts[0].host=${INGRESS_HOST} \
+        ${NETWORK_POLICY_SET} \
         --wait \
         --timeout 5m
     - echo "Deployment completed successfully"
