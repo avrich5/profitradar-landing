@@ -13,7 +13,6 @@ variables:
   NODE_VERSION: "20"
   REGISTRY: $CI_REGISTRY
   IMAGE_NAME: $CI_REGISTRY_IMAGE
-  KANIKO_VERSION: "latest"
 
 # Cache for npm dependencies
 .npm_cache: &npm_cache
@@ -73,7 +72,7 @@ trivy-config-scan:
 build:
   stage: build
   image:
-    name: gcr.io/kaniko-project/executor:${KANIKO_VERSION}
+    name: gcr.io/kaniko-project/executor:v1.23.2-debug
     entrypoint: [""]
   dependencies: []
   only:
@@ -86,9 +85,7 @@ build:
     - mkdir -p /kaniko/.docker
     - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
   script:
-    - /kaniko/executor --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile" --destination "${IMAGE_NAME}:${CI_COMMIT_SHA}" --destination "${IMAGE_NAME}:latest" --cache=true --cache-ttl=24h --cache-repo="${IMAGE_NAME}/cache" --compressed-caching=false --snapshot-mode=redo --use-new-run
-  after_script:
-    - echo "Build completed. Image ${IMAGE_NAME}:${CI_COMMIT_SHA}"
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination ${IMAGE_NAME}:${CI_COMMIT_SHA} --destination ${IMAGE_NAME}:latest --cache=true --cache-ttl=24h --cache-repo="${IMAGE_NAME}/cache" --compressed-caching=false --verbosity=info
 
 scan-image:
   stage: scan
