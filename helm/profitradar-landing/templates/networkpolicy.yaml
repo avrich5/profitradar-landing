@@ -14,20 +14,15 @@ spec:
     - Egress
   ingress:
     {{- if .Values.networkPolicy.allowIngress }}
-    # Allow ingress from Traefik ingress controller (multiple possible label combinations)
+    # Allow ingress from Traefik pods in traefik namespace
+    # Using namespaceSelector + podSelector to match Traefik pods specifically
     - from:
         - namespaceSelector:
             matchLabels:
-              name: traefik-system
-        - namespaceSelector:
-            matchLabels:
               name: traefik
-        - podSelector:
+          podSelector:
             matchLabels:
               app.kubernetes.io/name: traefik
-        - podSelector:
-            matchLabels:
-              app: traefik
       ports:
         - protocol: TCP
           port: 3000
