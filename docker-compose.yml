@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: profitradar-app
     restart: unless-stopped
+    user: root  # Override USER nextjs for Supervisor (Supervisor needs root to manage processes)
     ports:
       - "80:80"
     environment:

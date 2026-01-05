@@ -46,9 +46,18 @@ RUN mkdir -p /var/log/nginx /var/cache/nginx /var/run /var/log/nextjs && \
     chown -R nextjs:nodejs /app && \
     chown -R nextjs:nodejs /var/log/nextjs
 
+# Copy entrypoint script
+COPY --chown=root:root docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 EXPOSE 80
 
 ENV PORT 3000
 ENV HOSTNAME "0.0.0.0"
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+# Set non-root user (Trivy requirement: AVD-DS-0002)
+# Note: Supervisor needs root, so we override user in docker-compose.yml
+USER nextjs
+
+# Use entrypoint that runs Supervisor (will be overridden to root in docker-compose)
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
