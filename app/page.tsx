@@ -1,14 +1,18 @@
-import { HeroSectionCausal } from "@/components/b2c/hero-section-causal"
-import { ProblemSectionCausal } from "@/components/b2c/problem-section-causal"
-import { SolutionSectionCausal } from "@/components/b2c/solution-section-causal"
+import { 
+  HeroSectionRedesign,
+  ProblemSectionRedesign,
+  SolutionSectionRedesign,
+  DatasetSectionRedesign
+} from "@/components/b2c-redesign"
 
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <HeroSectionCausal />
-      <ProblemSectionCausal />
-      <SolutionSectionCausal />
-      {/* More sections will be added here */}
+      <HeroSectionRedesign />
+      <ProblemSectionRedesign />
+      <SolutionSectionRedesign />
+      <DatasetSectionRedesign />
+      {/* The Proof section - add later */}
     </main>
   )
 }
