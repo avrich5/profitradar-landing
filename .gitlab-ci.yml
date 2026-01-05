@@ -80,6 +80,7 @@ build:
     - main
     - master
     - develop
+    - docker-nginx-setup
     - tags
   before_script:
     - mkdir -p /kaniko/.docker
@@ -100,6 +101,7 @@ scan-image:
     - main
     - master
     - develop
+    - docker-nginx-setup
     - tags
   script:
     - trivy image --severity CRITICAL,HIGH --exit-code 0 --format table ${IMAGE_NAME}:${CI_COMMIT_SHA} || true
