@@ -1,0 +1,83 @@
+{{- if .Values.networkPolicy.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "profitradar-landing.fullname" . }}
+  labels:
+    {{- include "profitradar-landing.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "profitradar-landing.selectorLabels" . | nindent 6 }}
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    {{- if .Values.networkPolicy.allowIngress }}
+    # Allow ingress from Traefik ingress controller (multiple possible label combinations)
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: traefik-system
+        - namespaceSelector:
+            matchLabels:
+              name: traefik
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: traefik
+        - podSelector:
+            matchLabels:
+              app: traefik
+      ports:
+        - protocol: TCP
+          port: 80
+    # Allow ingress from same namespace pods (for service-to-service communication within the app)
+    - from:
+        - podSelector:
+            matchLabels:
+              {{- include "profitradar-landing.selectorLabels" . | nindent 14 }}
+      ports:
+        - protocol: TCP
+          port: 80
+    {{- else }}
+    # Deny all ingress
+    []
+    {{- end }}
+  egress:
+    {{- if .Values.networkPolicy.allowDNS }}
+    # Allow DNS resolution only (UDP and TCP port 53)
+    # This is the only allowed egress - all other traffic is denied
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              name: kube-system
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # Alternative DNS selector for CoreDNS
+    - to:
+        - podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    - to:
+        - podSelector:
+            matchLabels:
+              k8s-app: coredns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    {{- else }}
+    # No egress rules means all egress is denied
+    []
+    {{- end }}
+{{- end }}
+

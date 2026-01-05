@@ -1,0 +1,91 @@
+# Default values for profitradar-landing
+# This is a YAML-formatted file.
+
+replicaCount: 2
+
+image:
+  repository: ""
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+
+ingress:
+  enabled: true
+  className: "traefik"
+  annotations: {}
+    # traefik.ingress.kubernetes.io/router.entrypoints: web
+  hosts:
+    - host: profitradar.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  #  - secretName: profitradar-tls
+  #    hosts:
+  #      - profitradar.local
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+env:
+  - name: NODE_ENV
+    value: "production"
+  - name: PORT
+    value: "3000"
+  - name: HOSTNAME
+    value: "0.0.0.0"
+
+networkPolicy:
+  enabled: true
+  # Allow DNS resolution
+  allowDNS: true
+  # Allow ingress traffic from Traefik
+  allowIngress: true
+

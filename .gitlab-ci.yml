@@ -8,11 +8,15 @@ stages:
   - security
   - build
   - scan
+  - deploy
 
 variables:
   NODE_VERSION: "20"
   REGISTRY: $CI_REGISTRY
   IMAGE_NAME: $CI_REGISTRY_IMAGE
+  K8S_AGENT_CONTEXT: "frv/shark-bot:k3shetzner"
+  RELEASE_NAME: "profitradar-landing"
+  RELEASE_NAMESPACE: "default"
 
 # Cache for npm dependencies
 .npm_cache: &npm_cache
@@ -110,4 +114,52 @@ scan-image:
       - trivy-image-results.sarif
     expire_in: 1 week
   allow_failure: true
+
+deploy:helm:
+  stage: deploy
+  image: dtzar/helm-kubectl:3.19.1
+  dependencies:
+    - build
+  only:
+    - main
+    - master
+    - develop
+    - docker-nginx-setup
+    - tags
+  when: manual
+  before_script:
+    - helm version
+    - kubectl version --client
+    # Configure kubectl to use GitLab agent context
+    - |
+      if [ -n "$KUBECONFIG" ]; then
+        echo "Setting up Kubernetes authentication..."
+        chmod 400 "$KUBECONFIG"
+        export KUBECONFIG
+        kubectl config use-context ${K8S_AGENT_CONTEXT:-frv/shark-bot:k3shetzner}
+        kubectl cluster-info
+      else
+        echo "Warning: KUBECONFIG not set, kubectl may not be configured"
+      fi
+  script:
+    - |
+      if [ -z "$INGRESS_HOST" ]; then
+        echo "Error: INGRESS_HOST environment variable is not set"
+        exit 1
+      fi
+    - echo "Deploying to Kubernetes cluster..."
+    - echo "Image ${IMAGE_NAME}:${CI_COMMIT_SHA}"
+    - echo "Ingress Host ${INGRESS_HOST}"
+    - |
+      helm upgrade --install ${RELEASE_NAME:-profitradar-landing} ./helm/profitradar-landing \
+        --namespace ${RELEASE_NAMESPACE:-default} \
+        --create-namespace \
+        --set image.repository=${IMAGE_NAME} \
+        --set image.tag=${CI_COMMIT_SHA} \
+        --set ingress.hosts[0].host=${INGRESS_HOST} \
+        --wait \
+        --timeout 5m
+    - echo "Deployment completed successfully"
+    - kubectl get pods -n ${RELEASE_NAMESPACE:-default} -l app.kubernetes.io/name=${RELEASE_NAME:-profitradar-landing}
+    - kubectl get ingress -n ${RELEASE_NAMESPACE:-default} ${RELEASE_NAME:-profitradar-landing}
 
