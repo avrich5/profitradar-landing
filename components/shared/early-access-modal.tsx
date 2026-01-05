@@ -60,7 +60,7 @@ export function EarlyAccessModal({ isOpen, onClose, source }: EarlyAccessModalPr
       } else {
         setError("Something went wrong. Please try again.")
       }
-    } catch (err) {
+    } catch {
       setError("Network error. Please check your connection.")
     } finally {
       setIsSubmitting(false)
@@ -107,7 +107,7 @@ export function EarlyAccessModal({ isOpen, onClose, source }: EarlyAccessModalPr
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 className="text-2xl font-bold text-white mb-2">You're on the waitlist!</h3>
+            <h3 className="text-2xl font-bold text-white mb-2">You&apos;re on the waitlist!</h3>
             <p className="text-slate-400 mb-6">
               Check your email for confirmation and next steps.
             </p>
@@ -125,7 +125,7 @@ export function EarlyAccessModal({ isOpen, onClose, source }: EarlyAccessModalPr
               Join Early Access
             </h2>
             <p className="text-slate-400 mb-6">
-              Be the first to try ProfitRadar. We'll send you access details and documentation.
+              Be the first to try ProfitRadar. We&apos;ll send you access details and documentation.
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">

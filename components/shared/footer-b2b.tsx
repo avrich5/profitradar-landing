@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { EarlyAccessModal } from "./early-access-modal"
 
 /**
@@ -47,7 +48,7 @@ export function FooterB2B() {
                 Not a developer? Try our AI trading copilot. 
                 Validate strategies in minutes with no coding required.
               </p>
-              <a
+              <Link
                 href="/"
                 className="inline-flex items-center gap-2 px-4 py-2 bg-[#9ff878]/10 hover:bg-[#9ff878]/20 text-[#9ff878] font-semibold rounded-lg border border-[#9ff878]/20 transition-all duration-200 group"
               >
@@ -55,7 +56,7 @@ export function FooterB2B() {
                 <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
-              </a>
+              </Link>
             </div>
 
             {/* Column 3: Contact */}
@@ -108,9 +109,9 @@ export function FooterB2B() {
                 </a>
               </div>
               <div className="flex items-center gap-6">
-                <a href="/" className="hover:text-slate-300 transition-colors">
+                <Link href="/" className="hover:text-slate-300 transition-colors">
                   Trading Copilot
-                </a>
+                </Link>
                 <button onClick={() => setIsModalOpen(true)} className="hover:text-slate-300 transition-colors">
                   Early Access
                 </button>
