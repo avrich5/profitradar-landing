@@ -5,6 +5,7 @@ import { DataArchitectureSection } from "@/components/b2b-dataset/architecture-s
 import { ScaleProofSection } from "@/components/b2b-dataset/scale-proof-section"
 import { QualityControlSection } from "@/components/b2b-dataset/quality-control-section"
 import { IntegrationSection } from "@/components/b2b-dataset/integration-section"
+import { FooterB2B } from "@/components/shared/footer-b2b"
 
 export const metadata: Metadata = {
   title: "ProfitRadar Empirical Dataset - Ground AI Trading Decisions in Reality",
@@ -20,6 +21,7 @@ export default function DatasetPage() {
       <ScaleProofSection />
       <QualityControlSection />
       <IntegrationSection />
+      <FooterB2B />
     </main>
   )
 }

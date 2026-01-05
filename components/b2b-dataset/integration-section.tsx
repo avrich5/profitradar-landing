@@ -1,10 +1,14 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
-import { Button } from "@/components/shared/button"
+import { EarlyAccessModal } from "@/components/shared/early-access-modal"
 
 export function IntegrationSection() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   return (
+    <>
     <section className="relative py-32 bg-slate-900 overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -77,15 +81,21 @@ export function IntegrationSection() {
 
             {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="flex-1 bg-[#9ff878] hover:bg-[#78c368] text-slate-950 font-bold">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="flex-1 px-8 py-4 bg-[#9ff878] hover:bg-[#78c368] text-slate-950 font-bold text-lg rounded-xl transition-all duration-200 shadow-[0_0_30px_rgba(159,248,120,0.3)] hover:shadow-[0_0_40px_rgba(159,248,120,0.5)] inline-flex items-center justify-center group"
+              >
                 Request Access
-                <svg className="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
-              </Button>
-              <Button size="lg" variant="secondary" className="flex-1">
+              </button>
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="flex-1 px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-semibold text-lg rounded-xl border border-slate-700 transition-colors inline-flex items-center justify-center"
+              >
                 View Docs
-              </Button>
+              </button>
             </div>
 
             {/* Pricing hint */}
@@ -133,5 +143,13 @@ export function IntegrationSection() {
         </div>
       </div>
     </section>
+
+      {/* Early Access Modal */}
+      <EarlyAccessModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        source="B2B"
+      />
+    </>
   )
 }
