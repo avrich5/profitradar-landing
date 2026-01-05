@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 export function DatasetSectionRedesign() {
   return (
@@ -48,7 +49,7 @@ export function DatasetSectionRedesign() {
               className="text-xl text-slate-400 leading-relaxed mb-8"
             >
               AI trained on tens of thousands of real backtests, not generic language models. 
-              Each example includes mechanistic "Why" — teaching real market logic, not just correlations.
+              Each example includes mechanistic &quot;Why&quot; — teaching real market logic, not just correlations.
             </motion.p>
 
             <motion.div
@@ -100,7 +101,7 @@ export function DatasetSectionRedesign() {
                     <div>
                       <div className="text-lg font-bold text-white mb-2">Success & Failure Scenarios</div>
                       <div className="text-sm text-slate-400">
-                        AI knows what works AND what doesn't • Avoids common pitfalls
+                        AI knows what works AND what doesn&apos;t • Avoids common pitfalls
                       </div>
                     </div>
                   </div>
@@ -120,9 +121,11 @@ export function DatasetSectionRedesign() {
             <div className="absolute -inset-4 bg-gradient-to-br from-[#9ff878]/20 to-emerald-500/10 rounded-3xl blur-3xl" />
             
             <div className="relative rounded-2xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)]">
-              <img
+              <Image
                 src="/dataset-analytics.png"
                 alt="Causal Reasoning Dataset - Pattern Library Analytics with Tier structure"
+                width={1200}
+                height={800}
                 className="w-full h-auto"
               />
             </div>

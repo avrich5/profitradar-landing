@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 import { Button } from "@/components/shared/button"
 
 export function IntegrationSection() {
@@ -105,9 +106,11 @@ export function IntegrationSection() {
             <div className="absolute -inset-4 bg-gradient-to-br from-green-500/20 to-emerald-500/10 rounded-3xl blur-3xl" />
             
             <div className="relative rounded-2xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)]">
-              <img
+              <Image
                 src="/dataset/Parameter Adviser Model.png"
                 alt="Stable training progress - decreasing loss and accuracy growth"
+                width={1200}
+                height={800}
                 className="w-full h-auto"
               />
             </div>

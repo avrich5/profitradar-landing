@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 import { Button } from "@/components/shared/button"
 
 export function HeroSection() {
@@ -163,9 +164,11 @@ export function HeroSection() {
             
             {/* Screenshot - direct image, no complex container */}
             <div className="relative">
-              <img
+              <Image
                 src="/createstrategywithai08.png"
                 alt="Backtest Results showing Win Rate 97.5% and profit curve"
+                width={1200}
+                height={800}
                 className="w-full h-auto rounded-3xl border-2 border-brand-green/30 shadow-[0_20px_80px_rgba(159,248,120,0.3)]"
               />
 

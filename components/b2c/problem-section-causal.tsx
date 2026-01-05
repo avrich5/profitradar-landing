@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 export function ProblemSectionCausal() {
   return (
@@ -21,9 +22,11 @@ export function ProblemSectionCausal() {
             className="relative"
           >
             <div className="relative rounded-2xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)]">
-              <img
+              <Image
                 src="/problem-workflow-diagram.png"
                 alt="Causal Reasoning - System logic and mechanistic patterns"
+                width={1200}
+                height={800}
                 className="w-full h-auto"
               />
               
@@ -99,10 +102,10 @@ export function ProblemSectionCausal() {
             >
               Most bots follow 1970s textbooks and panic in volatile markets. 
               <span className="block mt-4 text-white font-semibold">
-                ProfitRadar's AI uses Causal Reasoning
+                ProfitRadar&apos;s AI uses Causal Reasoning
               </span>
               <span className="block mt-2 text-slate-400">
-                — it doesn't just guess price direction; it understands the{" "}
+                — it doesn&apos;t just guess price direction; it understands the{" "}
                 <span className="text-blue-400 font-semibold">WHY</span>{" "}
                 behind every move.
               </span>

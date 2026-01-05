@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 import { Button } from "@/components/shared/button"
 
 export function DatasetHeroSection() {
@@ -131,9 +132,11 @@ export function DatasetHeroSection() {
             <div className="relative w-fit mx-auto">
               <div className="absolute -inset-2 bg-gradient-to-br from-blue-500/40 to-purple-500/10 rounded-2xl blur-2xl" />
               <div className="relative rounded-xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)] w-fit">
-                <img
+                <Image
                   src="/dataset/Training Examples by Quality Tier.png"
                   alt="Training Examples by Quality Tier"
+                  width={600}
+                  height={450}
                   className="block"
                   style={{ maxHeight: '450px', width: 'auto' }}
                 />
@@ -147,9 +150,11 @@ export function DatasetHeroSection() {
             <div className="relative -ml-2.5">
               <div className="absolute -inset-2 bg-gradient-to-br from-[#9ff878]/30 to-emerald-500/10 rounded-2xl blur-2xl" />
               <div className="relative rounded-xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)]">
-                <img
+                <Image
                   src="/dataset/Strategic Adviser Model (POC Stage).png"
                   alt="96% Accuracy Results"
+                  width={800}
+                  height={600}
                   className="w-full h-auto"
                 />
               </div>

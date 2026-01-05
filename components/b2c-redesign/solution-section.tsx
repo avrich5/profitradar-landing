@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 export function SolutionSectionRedesign() {
   const steps = [
@@ -150,9 +151,11 @@ export function SolutionSectionRedesign() {
                   <div className="absolute -inset-4 bg-gradient-to-br from-[#9ff878]/20 to-emerald-500/10 rounded-3xl blur-3xl" />
                   
                   <div className="relative rounded-2xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)]">
-                    <img
+                    <Image
                       src={step.visual}
                       alt={`${step.title} - ${step.subtitle}`}
+                      width={1200}
+                      height={800}
                       className="w-full h-auto"
                     />
                   </div>

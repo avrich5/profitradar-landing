@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 export function DataArchitectureSection() {
   return (
@@ -43,9 +44,11 @@ export function DataArchitectureSection() {
             <div className="absolute -inset-6 bg-gradient-to-br from-purple-500/20 to-blue-500/10 rounded-3xl blur-3xl" />
             
             <div className="relative rounded-2xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)]">
-              <img
+              <Image
                 src="/dataset/jsonl_structure_diagram.drawio.png"
                 alt="JSONL Structure - System, User, Assistant roles with Chain-of-Thought"
+                width={1200}
+                height={800}
                 className="w-full h-auto"
               />
             </div>
@@ -109,7 +112,7 @@ export function DataArchitectureSection() {
             </div>
             <div className="text-lg font-bold text-white mb-2">ASSISTANT Role</div>
             <div className="text-sm text-slate-400 leading-relaxed">
-              <span className="text-cyan-400 font-semibold">15+ "Why:" reasoning statements</span> (Chain-of-Thought) 
+              <span className="text-cyan-400 font-semibold">15+ &quot;Why:&quot; reasoning statements</span> (Chain-of-Thought) 
               in every example. Teaches logic, not memorization.
             </div>
           </motion.div>

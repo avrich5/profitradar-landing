@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 import { Button } from "@/components/shared/button"
 
 export function SolutionSectionCausal() {
@@ -146,9 +147,11 @@ export function SolutionSectionCausal() {
                   transition={{ delay: 0.4, duration: 0.7 }}
                   className="relative rounded-2xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)]"
                 >
-                  <img
+                  <Image
                     src={step.visual}
                     alt={`${step.title} - ${step.subtitle}`}
+                    width={1200}
+                    height={800}
                     className="w-full h-auto"
                   />
                   
@@ -183,7 +186,7 @@ export function SolutionSectionCausal() {
 
                 <p className="text-lg text-slate-400 leading-relaxed mb-8">
                   AI trained on tens of thousands of real backtests, not generic language models. 
-                  Each example includes mechanistic "Why" — teaching real market logic, not just correlations.
+                  Each example includes mechanistic &quot;Why&quot; — teaching real market logic, not just correlations.
                 </p>
 
                 <div className="space-y-4">
@@ -224,7 +227,7 @@ export function SolutionSectionCausal() {
                     <div>
                       <div className="text-sm font-semibold text-white mb-1">Success & Failure Scenarios</div>
                       <div className="text-sm text-slate-500">
-                        AI knows what works AND what doesn't • Avoids common pitfalls
+                        AI knows what works AND what doesn&apos;t • Avoids common pitfalls
                       </div>
                     </div>
                   </div>
@@ -244,9 +247,11 @@ export function SolutionSectionCausal() {
               {/* Right: Visual */}
               <div className="relative">
                 <div className="relative rounded-2xl overflow-hidden border border-slate-800 shadow-[0_20px_70px_rgba(0,0,0,0.5)]">
-                  <img
+                  <Image
                     src="/dataset-training-dashboard.jpeg"
                     alt="Causal Reasoning Dataset - Tier structure and pattern quality"
+                    width={1200}
+                    height={800}
                     className="w-full h-auto"
                   />
                 </div>
@@ -285,9 +290,11 @@ export function SolutionSectionCausal() {
               className="relative"
             >
               <div className="relative rounded-2xl overflow-hidden border border-slate-800 shadow-[0_20px_70px_rgba(0,0,0,0.5)]">
-                <img
+                <Image
                   src="/proof-accuracy-chart.png"
                   alt="AI Training Progress - Accuracy curve reaching 96%"
+                  width={1200}
+                  height={800}
                   className="w-full h-auto"
                 />
                 
@@ -319,14 +326,14 @@ export function SolutionSectionCausal() {
               </div>
 
               <h3 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-                Math Don't Lie.{" "}
+                Math Don&apos;t Lie.{" "}
                 <span className="block mt-2 bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
                   96% Modeling Precision
                 </span>
               </h3>
 
               <p className="text-xl text-slate-400 leading-relaxed mb-8">
-                We don't sell a "black box." Our AI is calibrated on{" "}
+                We don&apos;t sell a &quot;black box.&quot; Our AI is calibrated on{" "}
                 <span className="text-white font-semibold">1.6M real trades</span>, 
                 ensuring highest market reality match.
               </p>

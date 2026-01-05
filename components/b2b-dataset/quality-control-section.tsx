@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 export function QualityControlSection() {
   return (
@@ -23,9 +24,11 @@ export function QualityControlSection() {
             <div className="absolute -inset-4 bg-gradient-to-br from-purple-500/20 to-pink-500/10 rounded-3xl blur-3xl" />
             
             <div className="relative rounded-2xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)]">
-              <img
+              <Image
                 src="/dataset/Quality Tiers and Training Weights.png"
                 alt="Distribution of Tiers 1-4 and training weights"
+                width={1200}
+                height={800}
                 className="w-full h-auto"
               />
             </div>
@@ -62,7 +65,7 @@ export function QualityControlSection() {
             </h2>
 
             <p className="text-xl text-slate-400 leading-relaxed mb-8">
-              We don't feed the model "noise."{" "}
+              We don&apos;t feed the model &quot;noise.&quot;{" "}
               <span className="text-white font-semibold">1.0x training weight</span> is reserved 
               exclusively for Tier 1 (Premium) examples with fitness score &gt; 0.6.
             </p>

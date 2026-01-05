@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 export function ScaleProofSection() {
   return (
@@ -49,9 +50,11 @@ export function ScaleProofSection() {
             <div className="absolute -inset-4 bg-gradient-to-br from-green-500/20 to-blue-500/10 rounded-3xl blur-3xl" />
             
             <div className="relative rounded-2xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)]">
-              <img
+              <Image
                 src="/dataset/Backtesting Heatmap.png"
                 alt="Asset vs Pattern Performance Matrix"
+                width={1200}
+                height={800}
                 className="w-full h-auto"
               />
             </div>
@@ -72,9 +75,11 @@ export function ScaleProofSection() {
             <div className="absolute -inset-4 bg-gradient-to-br from-blue-500/20 to-cyan-500/10 rounded-3xl blur-3xl" />
             
             <div className="relative rounded-2xl overflow-hidden border border-slate-800/50 shadow-[0_20px_70px_rgba(0,0,0,0.5)]">
-              <img
+              <Image
                 src="/dataset/Reasoning Density Analysis.png"
                 alt="Facts and Why statements per example"
+                width={1200}
+                height={800}
                 className="w-full h-auto"
               />
             </div>
