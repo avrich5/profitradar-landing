@@ -1,6 +1,8 @@
-# Docker Setup for ProfitRadar Landing
+# Docker Setup
 
 This project is configured to run in Docker containers using nginx as a reverse proxy.
+
+> **Related**: [CI/CD Pipeline](ci-cd.md) | [Security Updates](security.md)
 
 ## Structure
 

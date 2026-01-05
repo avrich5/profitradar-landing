@@ -1,0 +1,114 @@
+default:
+  tags:
+    - kubernetes
+
+stages:
+  - lint
+  - type-check
+  - security
+  - build
+  - scan
+
+variables:
+  NODE_VERSION: "20"
+  REGISTRY: $CI_REGISTRY
+  IMAGE_NAME: $CI_REGISTRY_IMAGE
+  KANIKO_VERSION: "latest"
+
+# Cache for npm dependencies
+.npm_cache: &npm_cache
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm/
+    policy: pull-push
+
+# Base template for Node.js jobs
+.node_template: &node_template
+  image: node:${NODE_VERSION}-alpine
+  <<: *npm_cache
+  before_script:
+    - npm ci --cache .npm --prefer-offline
+
+lint:
+  stage: lint
+  <<: *node_template
+  script:
+    - npm run lint
+  allow_failure: false
+
+type-check:
+  stage: type-check
+  <<: *node_template
+  script:
+    - npm run type-check
+  allow_failure: false
+
+npm-audit:
+  stage: security
+  <<: *node_template
+  script:
+    - echo "Running npm audit..."
+    - npm audit --audit-level=moderate || true
+  allow_failure: true
+
+trivy-config-scan:
+  stage: security
+  image:
+    name: aquasec/trivy:latest
+    entrypoint: [""]
+  script:
+    - trivy config --severity CRITICAL,HIGH --exit-code 0 --format table ${CI_PROJECT_DIR} || true
+    - trivy config --severity CRITICAL,HIGH --exit-code 0 --format sarif -o trivy-config-results.sarif ${CI_PROJECT_DIR} || true
+  artifacts:
+    reports:
+      sast: trivy-config-results.sarif
+    paths:
+      - trivy-config-results.sarif
+    expire_in: 1 week
+  allow_failure: true
+
+build:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:${KANIKO_VERSION}
+    entrypoint: [""]
+  dependencies: []
+  only:
+    - main
+    - master
+    - develop
+    - tags
+  before_script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+  script:
+    - /kaniko/executor --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile" --destination "${IMAGE_NAME}:${CI_COMMIT_SHA}" --destination "${IMAGE_NAME}:latest" --cache=true --cache-ttl=24h --cache-repo="${IMAGE_NAME}/cache" --compressed-caching=false --snapshot-mode=redo --use-new-run
+  after_script:
+    - echo "Build completed. Image ${IMAGE_NAME}:${CI_COMMIT_SHA}"
+
+scan-image:
+  stage: scan
+  image:
+    name: aquasec/trivy:latest
+    entrypoint: [""]
+  dependencies:
+    - build
+  only:
+    - main
+    - master
+    - develop
+    - tags
+  script:
+    - trivy image --severity CRITICAL,HIGH --exit-code 0 --format table ${IMAGE_NAME}:${CI_COMMIT_SHA} || true
+    - trivy image --severity CRITICAL,HIGH --exit-code 0 --format sarif -o trivy-image-results.sarif ${IMAGE_NAME}:${CI_COMMIT_SHA} || true
+  artifacts:
+    reports:
+      sast: trivy-image-results.sarif
+    paths:
+      - trivy-image-results.sarif
+    expire_in: 1 week
+  allow_failure: true
+

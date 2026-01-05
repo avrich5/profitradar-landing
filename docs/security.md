@@ -1,4 +1,8 @@
-# Security Updates - CVE Patches
+# Security Updates
+
+> **Related**: [Docker Setup](docker.md) | [CI/CD Pipeline](ci-cd.md)
+
+## CVE Patches
 
 ## Critical Vulnerabilities Fixed
 
