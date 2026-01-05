@@ -28,14 +28,25 @@ spec:
     - host: {{ .host | quote }}
       http:
         paths:
+          {{- if .paths }}
           {{- range .paths }}
           - path: {{ .path }}
-            pathType: {{ .pathType }}
+            pathType: {{ .pathType | default "Prefix" }}
             backend:
               service:
                 name: {{ include "profitradar-landing.fullname" $ }}
                 port:
-                  number: {{ $.Values.service.port }}
+                  name: http
+          {{- end }}
+          {{- else }}
+          # Default path if not specified
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "profitradar-landing.fullname" $ }}
+                port:
+                  name: http
           {{- end }}
     {{- end }}
 {{- end }}
