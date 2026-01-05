@@ -19,9 +19,6 @@ RUN npm run build
 # Production stage
 FROM node:20-alpine AS runner
 
-# Install nginx and supervisor
-RUN apk add --no-cache nginx supervisor
-
 WORKDIR /app
 
 ENV NODE_ENV production
@@ -35,29 +32,13 @@ COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Copy nginx configuration
-COPY --chown=root:root nginx.conf /etc/nginx/nginx.conf
+# Set non-root user (Trivy requirement: AVD-DS-0002)
+USER nextjs
 
-# Copy supervisor configuration
-COPY --chown=root:root supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-# Create log directories
-RUN mkdir -p /var/log/nginx /var/cache/nginx /var/run /var/log/nextjs && \
-    chown -R nextjs:nodejs /app && \
-    chown -R nextjs:nodejs /var/log/nextjs
-
-# Copy entrypoint script
-COPY --chown=root:root docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
-EXPOSE 80
+EXPOSE 3000
 
 ENV PORT 3000
 ENV HOSTNAME "0.0.0.0"
 
-# Set non-root user (Trivy requirement: AVD-DS-0002)
-# Note: Supervisor needs root, so we override user in docker-compose.yml
-USER nextjs
-
-# Use entrypoint that runs Supervisor (will be overridden to root in docker-compose)
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+# Run Next.js server directly
+CMD ["node", "server.js"]
