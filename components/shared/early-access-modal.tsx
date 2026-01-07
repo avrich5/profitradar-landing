@@ -128,7 +128,7 @@ export function EarlyAccessModal({ isOpen, onClose, source }: EarlyAccessModalPr
               Be the first to try ProfitRadar. We&apos;ll send you access details and documentation.
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
               {/* Email */}
               <div>
                 <label className="block text-sm font-semibold text-slate-300 mb-2">
@@ -139,7 +139,6 @@ export function EarlyAccessModal({ isOpen, onClose, source }: EarlyAccessModalPr
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  autoComplete="email"
                   name="user_email"
                   className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-[#9ff878] transition-colors"
                   placeholder="you@company.com"
@@ -156,7 +155,6 @@ export function EarlyAccessModal({ isOpen, onClose, source }: EarlyAccessModalPr
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  autoComplete="name"
                   name="user_name"
                   className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-[#9ff878] transition-colors"
                   placeholder="John Doe"
@@ -172,7 +170,6 @@ export function EarlyAccessModal({ isOpen, onClose, source }: EarlyAccessModalPr
                   type="text"
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  autoComplete="organization"
                   name="user_company"
                   className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-[#9ff878] transition-colors"
                   placeholder="Optional"
